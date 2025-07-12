@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Pathfinder 2E Hexploration Guide v1</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/1.0.3/css/bulma.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-map"></i> </span>
+                    <span>Pathfinder 2E Hexploration Guide</span>
+                </span>
+            </h1>
+            <p class="subtitle has-text-centered">A DM's companion for running hexploration</p>
+
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li class="is-active" data-tab="setup"><a>Setup</a></li>
+                    <li data-tab="exploration"><a>Exploration</a></li>
+                    <li data-tab="reference"><a>Reference</a></li>
+                </ul>
+            </div>
+
+            <div id="setup" class="tab-content">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Party Setup
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <div id="party-members-container">
+                                </div>
+                            <button id="add-character-btn" class="button is-primary is-small">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i> </span>
+                                <span>Add Character</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Exploration Setup
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="kingmaker-mode-toggle">
+                                        <strong>Enable Kingmaker Mode</strong>
+                                        <span class="icon is-small has-text-info info-icon" title="Enables detailed weather, expanded camping, zone DCs, and other rules from the Kingmaker Adventure Path.">
+                                            <i class="fas fa-info-circle"></i> </span>
+                                    </label>
+                                </div>
+                                <p class="help">Check this box to use Kingmaker-specific rules.</p>
+                            </div>
+                            <hr>
+                            <h4 class="subtitle is-6">Starting Hex Details</h4>
+                            <div class="field">
+                                <label class="label">Terrain Type</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="terrain-type">
+                                            <option value="plains">Plains</option>
+                                            <option value="forest">Forest</option>
+                                            <option value="mountain">Mountain</option>
+                                            <option value="desert">Desert</option>
+                                            <option value="swamp">Swamp</option>
+                                            <option value="aquatic">Aquatic</option>
+                                            <option value="arctic">Arctic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="help">The primary terrain type of the starting hex.</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">Terrain Difficulty</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="terrain-difficulty">
+                                            <option value="open">Open (1 Activity)</option>
+                                            <option value="difficult">Difficult (2 Activities)</option>
+                                            <option value="greater-difficult">Greater Difficult (3 Activities)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="help">How difficult the terrain is to traverse.</p>
+                            </div>
+
+                            <div id="kingmaker-hex-inputs" class="hidden">
+                                <div class="field">
+                                    <label class="label">Zone DC</label>
+                                    <div class="control">
+                                        <input id="zone-dc" class="input" type="number" value="18" min="1">
+                                    </div>
+                                    <p class="help">DC for Survival checks like Prepare Campsite (Kingmaker).</p>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Encounter DC (Zone)</label>
+                                    <div class="control">
+                                        <input id="zone-encounter-dc" class="input" type="number" value="16" min="1">
+                                    </div>
+                                    <p class="help">DC for random encounter checks during Camping (Kingmaker).</p>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="has-road">
+                                        Has a road
+                                    </label>
+                                </div>
+                                <p class="help">Roads reduce terrain difficulty by one step for Travel.</p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="has-river">
+                                        Has a river
+                                    </label>
+                                </div>
+                                <p class="help">Rivers lower the random encounter DC by 2.</p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="is-reconnoitered">
+                                        Hex is reconnoitered
+                                    </label>
+                                </div>
+                                <p class="help">The hex has been thoroughly explored.</p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="is-mapped">
+                                        Hex is mapped
+                                    </label>
+                                </div>
+                                <p class="help">The hex has been mapped (requires reconnoitering first).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="level">
+                    <div class="level-item">
+                        <button id="start-exploration-btn" class="button is-link is-medium">Start Exploration</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="exploration" class="tab-content hidden">
+                <div class="columns">
+                    <div class="column is-8">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    <span id="current-day">Day 1</span> of Exploration
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <div class="current-hex-info">
+                                        <h4 class="subtitle is-5">Current Hex</h4>
+                                        <div class="tags">
+                                            <span id="current-terrain-type" class="tag is-medium">N/A</span>
+                                            <span id="current-terrain-difficulty" class="tag is-medium">N/A</span>
+                                            <span id="current-hex-features" class="tag is-medium">N/A</span>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-container" class="box">
+                                        <p>Start exploration from the Setup tab.</p>
+                                    </div>
+
+                                    <div id="action-buttons" class="buttons">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column is-4">
+                        <div id="kingmaker-sidebar-status" class="card hidden">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    Kingmaker Status
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content has-text-small">
+                                    <div id="weather-status">
+                                        Weather info loading...
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    Party Status
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content" id="party-status">
+                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    Activities
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <div id="activity-slots">
+                                        <p>No activities available yet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    Day Log
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <div id="day-log" class="has-text-small" style="max-height: 150px; overflow-y: auto;">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reference" class="tab-content hidden">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Terrain Information
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped is-hoverable">
+                                    <thead>
+                                        <tr>
+                                            <th>Terrain Type</th>
+                                            <th>Typical Difficulty</th>
+                                            <th>Encounter DC (Core)</th>
+                                            <th>Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr> <td>Plains</td> <td>Open</td> <td>12</td> <td>Grasslands, farmland, gentle hills</td> </tr>
+                                        <tr> <td>Forest</td> <td>Difficult/Greater Difficult</td> <td>14</td> <td>Woods, jungle, dense vegetation</td> </tr>
+                                        <tr> <td>Mountain</td> <td>Greater Difficult</td> <td>16</td> <td>Mountains, steep hills, cliffs</td> </tr>
+                                        <tr> <td>Desert</td> <td>Difficult</td> <td>17</td> <td>Arid wastes, sand dunes, rocky deserts</td> </tr>
+                                        <tr> <td>Swamp</td> <td>Difficult</td> <td>14</td> <td>Marshes, bogs, wetlands</td> </tr>
+                                        <tr> <td>Aquatic</td> <td>Difficult/Greater Difficult</td> <td>17</td> <td>Lakes, oceans, underwater areas</td> </tr>
+                                        <tr> <td>Arctic</td> <td>Difficult/Greater Difficult</td> <td>17</td> <td>Snow-covered lands, ice fields, glaciers</td> </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Hexploration Activities
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <h5 class="title is-5">Group Activities</h5>
+                            <div class="box">
+                                <h6 class="title is-6">Travel</h6>
+                                <p>Move from one hex to an adjacent hex. Cost depends on <strong>destination</strong> terrain difficulty.</p>
+                                <ul> <li>Open Terrain: 1 activity</li> <li>Difficult Terrain: 2 activities</li> <li>Greater Difficult Terrain: 3 activities</li> <li><strong>Note:</strong> Roads reduce terrain difficulty by one step for Travel.</li> </ul>
+                            </div>
+                            <div class="box">
+                                <h6 class="title is-6">Reconnoiter</h6>
+                                <p>Thoroughly explore the <strong>current</strong> hex. Cost depends on <strong>current</strong> hex terrain difficulty.</p>
+                                <ul> <li>Open Terrain: 1 activity</li> <li>Difficult Terrain: 2 activities</li> <li>Greater Difficult Terrain: 3 activities</li> <li><strong>Note:</strong> Unlike Travel, roads do NOT reduce terrain difficulty for Reconnoiter.</li> </ul>
+                            </div>
+
+                            <h5 class="title is-5">Individual Activities</h5>
+                            <p>Each character can perform a different activity. Uses 1 group activity slot.</p>
+                            <div class="box">
+                                <h6 class="title is-6">Fortify Camp</h6>
+                                <p>Make camp safer for the night. Requires a Crafting check.</p>
+                                <p>Success: +2 circumstance bonus to initiative and Perception (Seek) for watch/defenders.</p>
+                            </div>
+                            <div class="box">
+                                <h6 class="title is-6">Map the Area</h6>
+                                <p>Create a map of the current hex. Requires the hex to be reconnoitered first.</p>
+                                <p>Requires a Survival check.</p> <p>Success: Reduces the DC for navigating this hex by 2 in the future.</p>
+                            </div>
+                            <div class="box">
+                                <h6 class="title is-6">Subsist</h6>
+                                <p>Find food and shelter. Follows standard Subsist downtime rules.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Random Encounters (Core)
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>At the start of each day, roll a flat check against the encounter DC for the terrain type.</p>
+                            <p><strong>Modifiers:</strong> On a road or river, decrease DC by 2. If flying, increase DC by 3.</p>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped">
+                                    <thead> <tr> <th>Result</th> <th>Outcome</th> </tr> </thead>
+                                    <tbody> <tr> <td>Success (≥DC)</td> <td>One random encounter</td> </tr> <tr> <td>Critical Success (≥DC+10)</td> <td>Two random encounters</td> </tr> </tbody>
+                                </table>
+                            </div>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped">
+                                    <thead> <tr> <th>Roll (d10)</th> <th>Encounter Type</th> </tr> </thead>
+                                    <tbody> <tr> <td>1-5</td> <td>Harmless</td> </tr> <tr> <td>6-7</td> <td>Hazard</td> </tr> <tr> <td>8-10</td> <td>Creature</td> </tr> </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Speed & Activities
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>Activities per day are determined by the slowest non-fatigued party member.</p>
+                            <div class="table-container">
+                                <table class="table is-fullwidth is-striped">
+                                    <thead> <tr> <th>Speed</th> <th>Activities Per Day</th> </tr> </thead>
+                                    <tbody>
+                                        <tr> <td>10 feet or less</td> <td>1/2 (takes 2 days per activity)</td> </tr>
+                                        <tr> <td>15–25 feet</td> <td>1</td> </tr>
+                                        <tr> <td>30–40 feet</td> <td>2</td> </tr>
+                                        <tr> <td>45–55 feet</td> <td>3</td> </tr>
+                                        <tr> <td>60 feet or more</td> <td>4</td> </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="notification is-info is-light">
+                                <p><strong>Forced March:</strong> Gain an extra Travel activity (or a full Travel activity for a 10ft- Speed group). This is the ONLY activity that day.</p>
+                                <p>If forced march days exceed a character's Constitution modifier (minimum 1), they become Fatigued.</p>
+                                <p>A fatigued character must rest an entire day to recover.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> </div> </section>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
